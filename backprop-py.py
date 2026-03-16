@@ -43,17 +43,17 @@ class MLP:
 
 def main():
     if len(sys.argv)>1 and sys.argv[1]=="--test":
-        net=MLP([2,8,1],seed=42)
+        net=MLP([2,16,1],seed=42)
         X=[[0,0],[0,1],[1,0],[1,1]];Y=[[0],[1],[1],[0]]
         for _ in range(5000):
             for x,y in zip(X,Y):
-                out=net.forward(x);net.backward(out,y,lr=0.5)
+                out=net.forward(x);net.backward(out,y,lr=1.0)
         preds=[round(net.forward(x)[0])for x in X]
         assert preds==[0,1,1,0],f"Got {preds}"
         print("All tests passed!")
     else:
         net=MLP([2,8,1]);X=[[0,0],[0,1],[1,0],[1,1]];Y=[[0],[1],[1],[0]]
         for _ in range(5000):
-            for x,y in zip(X,Y):out=net.forward(x);net.backward(out,y,lr=0.5)
+            for x,y in zip(X,Y):out=net.forward(x);net.backward(out,y,lr=1.0)
         for x in X:print(f"  {x} -> {net.forward(x)[0]:.4f}")
 if __name__=="__main__":main()
